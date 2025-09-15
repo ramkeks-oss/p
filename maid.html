@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Горничная - Заявки</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="storage.js"></script>
+  <script src="maid.js" defer></script>
+</head>
+<body>
+  <nav>
+    <a href="maid.html">Горничная</a>
+    <a href="tech.html">Техотдел</a>
+  </nav>
+
+  <h1>Новая заявка</h1>
+  <form id="requestForm">
+    <label>Город*:
+      <input type="text" id="city" required>
+    </label>
+    <label>Квартира/Адрес*:
+      <input type="text" id="address" required>
+    </label>
+    <label>Тип*:
+      <select id="type" required>
+        <option value="Сантехника">Сантехника</option>
+        <option value="Электрика">Электрика</option>
+        <option value="Техника">Техника</option>
+        <option value="Другое">Другое</option>
+      </select>
+    </label>
+    <label>Срочность*:
+      <select id="urgency" required>
+        <option value="Обычная">Обычная</option>
+        <option value="Аварийная">Аварийная</option>
+      </select>
+    </label>
+    <label>Описание:
+      <textarea id="description"></textarea>
+    </label>
+    <label>Фото:
+      <input type="file" id="photo" accept="image/*">
+    </label>
+    <button type="submit">Отправить</button>
+  </form>
+  <div class="message" id="message"></div>
+</body>
+</html>
+
