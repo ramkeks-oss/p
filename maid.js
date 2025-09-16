@@ -1,5 +1,4 @@
-// maid.js — форма для горничной
-
+// maid.js — отправка заявки в Google Sheets (через FormData)
 const API_URL = "https://script.google.com/macros/s/AKfycbxa7jhUEjSubryWUrSsCShEb9wI96nYbpQLXta6ul2206o0JhZN7XbNnu33JDsQg1CX/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,37 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // собираем данные из формы
-    const data = {
-      city: document.getElementById("city").value,
-      apartment: document.getElementById("apartment").value,
-      room: document.getElementById("room").value,
-      urgency: document.getElementById("urgency").value,
-      description: document.getElementById("description").value,
-      photoBefore: document.getElementById("photoBefore").value,
-      photoAfter: document.getElementById("photoAfter").value,
-      video: document.getElementById("video").value
-    };
+    const fd = new FormData(form);
 
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
-      const result = await res.json();
-
-      if (result.ok) {
-        alert(`Заявка создана! ID: ${result.id}`);
-        form.reset();
-      } else {
-        alert("Ошибка при создании заявки: " + (result.error || "неизвестная ошибка"));
-      }
+      await fetch(API_URL, { method: "POST", body: fd });
+      alert("Заявка отправлена! Проверь таблицу Google Sheets (лист «Заявки»).");
+      form.reset();
     } catch (err) {
       console.error(err);
-      alert("Не удалось отправить заявку. Проверьте интернет или API.");
+      alert("Ошибка при отправке. Проверь интернет или API.");
     }
   });
 });
+
 
