@@ -1,42 +1,45 @@
-document.getElementById('requestForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  const city = document.getElementById('city').value.trim();
-  const address = document.getElementById('address').value.trim();
-  const type = document.getElementById('type').value;
-  const urgency = document.getElementById('urgency').value;
-  const description = document.getElementById('description').value.trim();
-  const photoInput = document.getElementById('photo');
-  const message = document.getElementById('message');
+// maid.js — форма для горничной
 
-  const request = {
-    id: Date.now(),
-    city,
-    address,
-    type,
-    urgency,
-    description,
-    status: 'Новая',
-    createdAt: new Date().toISOString(),
-  };
+const API_URL = "https://script.google.com/macros/s/AKfycbxa7jhUEjSubryWUrSsCShEb9wI96nYbpQLXta6ul2206o0JhZN7XbNnu33JDsQg1CX/exec";
 
-  function save(photoData) {
-    if (photoData) {
-      request.photo = photoData;
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("maidForm");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // собираем данные из формы
+    const data = {
+      city: document.getElementById("city").value,
+      apartment: document.getElementById("apartment").value,
+      room: document.getElementById("room").value,
+      urgency: document.getElementById("urgency").value,
+      description: document.getElementById("description").value,
+      photoBefore: document.getElementById("photoBefore").value,
+      photoAfter: document.getElementById("photoAfter").value,
+      video: document.getElementById("video").value
+    };
+
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+
+      if (result.ok) {
+        alert(`Заявка создана! ID: ${result.id}`);
+        form.reset();
+      } else {
+        alert("Ошибка при создании заявки: " + (result.error || "неизвестная ошибка"));
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Не удалось отправить заявку. Проверьте интернет или API.");
     }
-    const requests = loadRequests();
-    requests.push(request);
-    saveRequests(requests);
-    document.getElementById('requestForm').reset();
-    message.textContent = 'Заявка создана';
-    setTimeout(() => message.textContent = '', 3000);
-  }
-
-  if (photoInput.files[0]) {
-    const reader = new FileReader();
-    reader.onload = () => save(reader.result);
-    reader.readAsDataURL(photoInput.files[0]);
-  } else {
-    save(null);
-  }
+  });
 });
 
