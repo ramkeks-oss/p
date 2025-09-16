@@ -1,5 +1,5 @@
 // maid.js — отправка заявки в Google Sheets (через FormData)
-const API_URL = "https://script.google.com/macros/s/AKfycbxa7jhUEjSubryWUrSsCShEb9wI96nYbpQLXta6ul2206o0JhZN7XbNnu33JDsQg1CX/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwg9u5cjwahtUJeZz6-friLUC5UkJx2aHQzwI_XAQXi0AOVfkoZSTrAl7C8ow5JWiOz/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("maidForm");
