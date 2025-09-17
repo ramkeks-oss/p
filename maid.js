@@ -1,8 +1,8 @@
-// maid.js — отправка без CORS-ошибки (no-cors + FormData)
-const API_URL = "https://script.google.com/macros/s/AKfycbx9ZNa8GUBufe6gK5ICvliTjANy1zky21Wiy__Xd0iT-JjNVnSdrdi6JwvlvsuEz1Sp/exec";
+// maid.js — отправка заявки (FormData + no-cors)
+const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("maidForm");
+  const form = document.getElementById("maidForm"); // у формы должен быть id="maidForm"
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
@@ -12,12 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       await fetch(API_URL, {
         method: "POST",
-        mode: "no-cors",   // ⬅️ ключ к устранению ошибки в консоли
-        body: fd
+        mode: "no-cors",      // убирает CORS-ошибку
+        body: fd              // Apps Script прочитает как e.parameter
       });
 
-      // ответ будет "opaque", поэтому просто считаем, что ушло
-      alert("Заявка отправлена! Проверь лист «Заявки» в Google Таблице.");
+      alert("Заявка отправлена! Проверь лист «Заявки» в таблице.");
       form.reset();
     } catch (err) {
       console.error(err);
@@ -25,3 +24,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
