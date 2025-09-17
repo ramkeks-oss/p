@@ -1,5 +1,5 @@
 // maid.js — localhost:8000/maid.html (через FormData)
-const API_URL = "https://script.google.com/macros/s/AKfycbwg9u5cjwahtUJeZz6-friLUCSUkJx2aHQzwI_XAQXi0AOVfkoZSTrA17C8ow5JWiOz/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwM-DERytH4Kr0oTAQKU9dXsAJLTCJ7kxqJhXml5OPKZNCfqYA9G7H0mFfK4uqQmpuJqg/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("maidForm");
