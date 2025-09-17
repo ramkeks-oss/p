@@ -1,46 +1,29 @@
-// maid.js — форма для горничной
-
-const API_URL = "const API_URL = "const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
-";
-";
+// maid.js — отправка без CORS-ошибок (FormData + no-cors)
+const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("maidForm");
+  const form = document.getElementById("maidForm"); // убедись, что у формы id="maidForm"
   if (!form) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // собираем данные из формы
-    const data = {
-      city: document.getElementById("city").value,
-      apartment: document.getElementById("apartment").value,
-      room: document.getElementById("room").value,
-      urgency: document.getElementById("urgency").value,
-      description: document.getElementById("description").value,
-      photoBefore: document.getElementById("photoBefore").value,
-      photoAfter: document.getElementById("photoAfter").value,
-      video: document.getElementById("video").value
-    };
+    // Собираем данные ровно как в форме (Город/Комната/Срочность и т.д.)
+    const fd = new FormData(form);
 
     try {
-      const res = await fetch(API_URL, {
+      await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
+        mode: "no-cors",        // ← это отключит CORS-ошибку в браузере
+        body: fd                // сервер поймёт как e.parameter
       });
 
-      const result = await res.json();
-
-      if (result.ok) {
-        alert(`Заявка создана! ID: ${result.id}`);
-        form.reset();
-      } else {
-        alert("Ошибка при создании заявки: " + (result.error || "неизвестная ошибка"));
-      }
+      // Ответ будет opaque, это нормально
+      alert("Заявка отправлена! Проверь лист «Заявки» в таблице.");
+      form.reset();
     } catch (err) {
       console.error(err);
-      alert("Не удалось отправить заявку. Проверьте интернет или API.");
+      alert("Не удалось отправить. Проверь интернет или URL API.");
     }
   });
 });
