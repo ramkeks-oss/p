@@ -1,5 +1,6 @@
 // maid.js — отправка без CORS-ошибок (FormData + no-cors)
-const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
+const const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
+";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("maidForm"); // убедись, что у формы id="maidForm"
