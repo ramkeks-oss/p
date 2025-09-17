@@ -3,54 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Горничная — Заявки</title>
-  <script defer src="maid.js"></script>
-  <style>
-    body { font-family: system-ui, Arial, sans-serif; max-width: 720px; margin: 24px auto; padding: 0 12px; }
-    label { display:block; margin: 12px 0 4px; }
-    input, select, textarea { width:100%; padding:8px; box-sizing:border-box; }
-    button { margin-top:16px; padding:10px 16px; cursor:pointer; }
-  </style>
+  <title>Оставить заявку</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>Новая заявка</h1>
+  <header class="container">
+    <h1>Оставить заявку</h1>
+    <nav class="nav">
+      <a href="index.html" class="btn btn-ghost">На главную</a>
+      <a href="tech.html" class="btn">Страница техника</a>
+    </nav>
+  </header>
 
-  <form id="maidForm">
-    <label>Город*</label>
-    <input id="city" name="city" type="text" placeholder="Щёлково" required />
+  <main class="container">
+    <form id="maidForm" class="card">
+      <div class="grid">
+        <label>
+          <span>Имя*</span>
+          <input name="name" required placeholder="Иван" />
+        </label>
+        <label>
+          <span>Телефон*</span>
+          <input name="phone" required placeholder="+7 900 000-00-00" />
+        </label>
+      </div>
 
-    <label>Квартира / Адрес*</label>
-    <input id="apartment" name="apartment" type="text" placeholder="ул. Комарова, 10, кв. 12" required />
+      <label>
+        <span>Адрес</span>
+        <input name="address" placeholder="г. Москва, ул. Пример, д. 1" />
+      </label>
 
-    <label>Комната*</label>
-    <select id="room" name="room" required>
-      <option value="">Выберите…</option>
-      <option>Зал</option><option>Кухня</option><option>Спальня</option>
-      <option>Ванная</option><option>Коридор</option><option>Другое</option>
-    </select>
+      <label>
+        <span>Описание проблемы*</span>
+        <textarea name="description" rows="4" required placeholder="Коротко опишите проблему..."></textarea>
+      </label>
 
-    <label>Срочность*</label>
-    <select id="urgency" name="urgency" required>
-      <option value="">Выберите…</option>
-      <option>Обычная</option>
-      <option>Аварийная</option>
-    </select>
+      <div class="grid">
+        <label>
+          <span>Приоритет</span>
+          <select name="priority">
+            <option value="Низкий">Низкий</option>
+            <option value="Средний" selected>Средний</option>
+            <option value="Высокий">Высокий</option>
+          </select>
+        </label>
+        <label>
+          <span>Желаемая дата</span>
+          <input type="date" name="preferredDate" />
+        </label>
+      </div>
 
-    <label>Описание</label>
-    <textarea id="description" name="description" rows="4" placeholder="Коротко опишите проблему"></textarea>
+      <div class="actions">
+        <button id="submitBtn" class="btn" type="submit">Отправить</button>
+      </div>
+    </form>
+  </main>
 
-    <label>Фото ДО (URL)</label>
-    <input id="photoBefore" name="photoBefore" type="url" placeholder="https://…" />
-
-    <label>Фото ПОСЛЕ (URL)</label>
-    <input id="photoAfter" name="photoAfter" type="url" placeholder="https://…" />
-
-    <label>Видео (URL)</label>
-    <input id="video" name="video" type="url" placeholder="https://…" />
-
-    <button type="submit">Отправить</button>
-  </form>
+  <script src="maid.js"></script>
 </body>
 </html>
-
-
