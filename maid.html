@@ -17,49 +17,34 @@
 
   <main class="container">
     <form id="maidForm" class="card">
-      <div class="grid">
-        <label>
-          <span>Имя*</span>
-          <input name="name" required placeholder="Иван" />
-        </label>
-        <label>
-          <span>Телефон*</span>
-          <input name="phone" required placeholder="+7 900 000-00-00" />
-        </label>
-      </div>
+  <div class="grid">
+    <label><span>Имя*</span><input name="name" required /></label>
+    <label><span>Телефон*</span><input name="phone" required /></label>
+  </div>
 
-      <label>
-        <span>Адрес</span>
-        <input name="address" placeholder="г. Москва, ул. Пример, д. 1" />
-      </label>
+  <label><span>Адрес</span><input name="address" /></label>
+  <label><span>Описание*</span><textarea name="description" required></textarea></label>
 
-      <label>
-        <span>Описание проблемы*</span>
-        <textarea name="description" rows="4" required placeholder="Коротко опишите проблему..."></textarea>
-      </label>
+  <div class="grid">
+    <label>
+      <span>Приоритет</span>
+      <select name="priority">
+        <option>Низкий</option>
+        <option selected>Средний</option>
+        <option>Высокий</option>
+      </select>
+    </label>
+    <label><span>Желаемая дата</span><input type="date" name="preferredDate" /></label>
+  </div>
 
-      <div class="grid">
-        <label>
-          <span>Приоритет</span>
-          <select name="priority">
-            <option value="Низкий">Низкий</option>
-            <option value="Средний" selected>Средний</option>
-            <option value="Высокий">Высокий</option>
-          </select>
-        </label>
-        <label>
-          <span>Желаемая дата</span>
-          <input type="date" name="preferredDate" />
-        </label>
-      </div>
+  <div class="actions">
+    <button id="submitBtn" class="btn" type="submit">Отправить</button>
+  </div>
+</form>
+</main>
 
-      <div class="actions">
-        <button id="submitBtn" class="btn" type="submit">Отправить</button>
-      </div>
-    </form>
-  </main>
-
-  <script src="maid.js?v=3"></script>
+<script src="maid.js?v=3"></script>
 </body>
 </html>
+
 
