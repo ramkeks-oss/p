@@ -1,6 +1,7 @@
 // maid.js — форма для горничной
 
-const API_URL = "const API_URL = "https://script.google.com/macros/s/AKfycbx9ZNa8GUBufe6gK5ICvliTjANy1zky21Wiy__Xd0iT-JjNVnSdrdi6JwvlvsuEz1Sp/exec";
+const API_URL = "const API_URL = "const API_URL = "https://script.google.com/macros/s/AKfycbwevA5orVK0dJr-rIWffAtlLc9e_35JprIAeNxRHmIvbKfIgyRW1WYnFie4MtmpB2yB/exec";
+";
 ";
 
 document.addEventListener("DOMContentLoaded", () => {
