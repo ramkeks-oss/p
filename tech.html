@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Заявки техотдела</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Заявки</h1>
+  <div>
+    <label>Срочность
+      <select id="urgency-filter">
+        <option value="all">Все</option>
+        <option value="normal">Обычная</option>
+        <option value="emergency">Аварийная</option>
+      </select>
+    </label>
+    <label>Статус
+      <select id="status-filter">
+        <option value="all">Все</option>
+        <option value="new">Новая</option>
+        <option value="in_progress">В работе</option>
+        <option value="done">Выполнена</option>
+      </select>
+    </label>
+  </div>
+  <table id="request-table" border="1">
+    <thead>
+      <tr>
+        <th>Адрес</th>
+        <th>Проблема</th>
+        <th>Комментарий</th>
+        <th>Срочность</th>
+        <th>Статус</th>
+        <th>Фото</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script src="script.js"></script>
+  <script>
+    const urgencyFilter = document.getElementById('urgency-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const tbody = document.querySelector('#request-table tbody');
+
+    function render() {
+      const requests = getRequests();
+      tbody.innerHTML = '';
+      const uVal = urgencyFilter.value;
+      const sVal = statusFilter.value;
+      requests.forEach(r => {
+        if (uVal !== 'all' && r.urgency !== uVal) return;
+        if (sVal !== 'all' && r.status !== sVal) return;
+        const tr = document.createElement('tr');
+        if (r.urgency === 'emergency') tr.classList.add('urgent');
+        tr.innerHTML = `
+          <td>${r.address}</td>
+          <td>${r.problem}</td>
+          <td>${r.comment || ''}</td>
+          <td>${r.urgency === 'emergency' ? 'Аварийная' : 'Обычная'}</td>
+          <td>
+            <select data-id="${r.id}">
+              <option value="new" ${r.status === 'new' ? 'selected' : ''}>Новая</option>
+              <option value="in_progress" ${r.status === 'in_progress' ? 'selected' : ''}>В работе</option>
+              <option value="done" ${r.status === 'done' ? 'selected' : ''}>Выполнена</option>
+            </select>
+          </td>
+          <td>${r.photo ? `<img src="${r.photo}" width="100" alt="фото" />` : ''}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    urgencyFilter.addEventListener('change', render);
+    statusFilter.addEventListener('change', render);
+    tbody.addEventListener('change', e => {
+      if (e.target.tagName === 'SELECT') {
+        const id = Number(e.target.dataset.id);
+        const requests = getRequests();
+        const req = requests.find(x => x.id === id);
+        req.status = e.target.value;
+        saveRequests(requests);
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

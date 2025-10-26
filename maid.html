@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Заявка о поломке</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Сообщить о поломке</h1>
+  <form id="request-form">
+    <label>
+      Адрес квартиры
+      <input type="text" name="address" required />
+    </label>
+    <label>
+      Тип проблемы
+      <input type="text" name="problem" required />
+    </label>
+    <label>
+      Комментарий
+      <textarea name="comment"></textarea>
+    </label>
+    <fieldset>
+      <legend>Срочность</legend>
+      <label><input type="radio" name="urgency" value="normal" checked /> Обычная</label>
+      <label><input type="radio" name="urgency" value="emergency" /> Аварийная</label>
+    </fieldset>
+    <label>
+      Фото (необязательно)
+      <input type="file" name="photo" accept="image/*" />
+    </label>
+    <button type="submit">Отправить</button>
+  </form>
+  <div id="status"></div>
+  <script src="script.js"></script>
+  <script>
+    const form = document.getElementById('request-form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      const request = {
+        id: Date.now(),
+        address: data.get('address'),
+        problem: data.get('problem'),
+        comment: data.get('comment'),
+        urgency: data.get('urgency'),
+        status: 'new'
+      };
+      const file = data.get('photo');
+      if (file && file.size > 0) {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+          request.photo = evt.target.result;
+          saveRequest(request);
+          form.reset();
+          document.getElementById('status').textContent = 'Заявка отправлена';
+        };
+        reader.readAsDataURL(file);
+      } else {
+        saveRequest(request);
+        form.reset();
+        document.getElementById('status').textContent = 'Заявка отправлена';
+      }
+    });
+  </script>
+</body>
+</html>
